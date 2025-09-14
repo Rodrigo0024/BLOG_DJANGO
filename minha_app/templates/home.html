@@ -1,18 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Meu Blog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Blog - Django + Bootstrap</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Ícone do site (favicon) -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2867/2867947.png" type="image/x-icon">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #2c3e50 !important;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .card-title {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .card-text {
+            color: #555;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+        }
+        .hero-section h1 {
+            font-weight: 700;
+            font-size: 2.8rem;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+    </style>
 </head>
 <body>
-    <h1>Bem-vindo ao meu blog!</h1>
-    {% if posts %}
-        {% for post in posts %}
-            <h3>{{ post.titulo }}</h3>
-            <p>{{ post.conteudo }}</p>
-            <hr>
-        {% endfor %}
-    {% else %}
-        <p>Nenhum post ainda.</p>
-    {% endif %}
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'homepage' %}">
+                <i class="bi bi-journal-text"></i> Meu Blog
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'homepage' %}">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1>👋 Bem-vindo ao meu blog!</h1>
+            <p class="lead">Aqui compartilho ideias, aprendizados e tudo que descubro no caminho do desenvolvimento.</p>
+        </div>
+    </section>
+
+    <!-- Posts -->
+    <div class="container mb-5">
+        {% if posts %}
+            <div class="row g-4">
+                {% for post in posts %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ post.titulo }}</h5>
+                                <p class="card-text flex-grow-1">{{ post.conteudo|linebreaks }}</p>
+                                <small class="text-muted mt-auto">
+                                    Publicado em: {{ post.data_criacao|date:"d/m/Y \às H:i" }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center mt-4" role="alert">
+                <h4><i class="bi bi-file-earmark-text"></i> Nenhum post ainda :(</h4>
+                <p>Vá até o <a href="/admin" class="alert-link">painel administrativo</a> e crie o primeiro!</p>
+            </div>
+        {% endif %}
+    </div>
+
+   
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Icons (Bootstrap Icons) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 </body>
 </html>
