@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meu Blog</title>
+</head>
+<body>
+    <h1>Bem-vindo ao meu blog!</h1>
+    {% if posts %}
+        {% for post in posts %}
+            <h3>{{ post.titulo }}</h3>
+            <p>{{ post.conteudo }}</p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>Nenhum post ainda.</p>
+    {% endif %}
+</body>
+</html>
